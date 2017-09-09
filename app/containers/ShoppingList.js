@@ -21,15 +21,20 @@ export default class ShoppingListContainer extends React.Component {
   constructor(...args) {
     super(...args);
 
+    this.recipesRef = firebaseApp.database().ref('recipes');
     this.itemsRef = firebaseApp.database().ref('items');
     this.shoppingListRef = firebaseApp.database().ref('shoppingList');
 
     this.addItem = this.addItem.bind(this);
+    this.clearShoppingList = this.clearShoppingList.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.removeRecipeFromShoppingList = this.removeRecipeFromShoppingList.bind(this);
 
     this.state = {
       shoppingList: [],
       items: [],
+      recipes: [],
+      recipesOnList: [],
       newItemText: '',
     };
   }
@@ -37,6 +42,7 @@ export default class ShoppingListContainer extends React.Component {
   componentDidMount() {
     this.listenForItems(this.itemsRef);
     this.listenForShoppingList(this.shoppingListRef);
+    this.listenForRecipes(this.recipesRef);
   }
 
   listenForItems(itemsRef) {
@@ -56,15 +62,54 @@ export default class ShoppingListContainer extends React.Component {
 
   listenForShoppingList(itemsRef) {
     itemsRef.on('value', (snap) => {
-      const items = [];
+      const shoppingList = [];
+      const recipesOnList = [];
       snap.forEach((child) => {
-        items.push({
-          title: child.val().title,
+        if (child.val().title) {
+          shoppingList.push({
+            title: child.val().title,
+            key: child.key,
+          });
+        } else {
+          // If not an ingredient, its a recipe. Find the recipe and pull out the ingredients needed
+          const recipe = this.state.recipes[child.val().recipeKey];
+          recipesOnList.push({
+            ...recipe,
+            shoppingListKey: child.key,
+          });
+
+          let listIngredients = [];
+          if (recipe && recipe.ingredients) {
+            listIngredients = recipe.ingredients.filter(ingredient => !!ingredient.list);
+          }
+
+          listIngredients.forEach((ingredient) => {
+            shoppingList.push({
+              title: ingredient.name,
+              key: `${ingredient.name}-${child.key}`,
+              recipeKey: recipe.key,
+            });
+          });
+        }
+      });
+      this.setState({
+        shoppingList,
+        recipesOnList,
+      });
+    });
+  }
+
+  listenForRecipes(recipesRef) {
+    recipesRef.on('value', (snap) => {
+      const recipes = [];
+      snap.forEach((child) => {
+        recipes.push({
           key: child.key,
+          ...child.val(),
         });
       });
       this.setState({
-        shoppingList: items,
+        recipes,
       });
     });
   }
@@ -84,24 +129,53 @@ export default class ShoppingListContainer extends React.Component {
     }
   }
 
+  clearShoppingList() {
+    // TODO if list has recipes, replace the Menu
+
+    // then do this
+    this.shoppingListRef.remove();
+
+    this.state.recipesOnList.forEach((recipe) => {
+      console.log(recipe);
+      firebaseApp.database().ref(`recipes/${recipe.key}`).set({
+        ...recipe,
+        onShoppingList: false,
+      });
+    });
+  }
+
   removeItem(itemToRemove) {
     this.shoppingListRef.child(itemToRemove.key).remove();
   }
 
+  removeRecipeFromShoppingList(recipe) {
+    this.shoppingListRef.child(recipe.shoppingListKey).remove();
+
+    firebaseApp.database().ref(`recipes/${recipe.key}`).set({
+      ...recipe,
+      onShoppingList: false,
+    });
+  }
+
   render() {
+    console.log(this.state.recipesOnList);
     // const { navigate, state } = this.props.navigation;
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <ShoppingList
-          style={{ flex: 1, alignSelf: 'stretch' }}
-          items={this.state.shoppingList}
+          handleDoneButtonPress={this.clearShoppingList}
           handleRemoveItem={this.removeItem}
+          handleRemoveRecipe={this.removeRecipeFromShoppingList}
+          items={this.state.shoppingList}
+          navigation={this.props.navigation}
+          recipes={this.state.recipesOnList}
+          style={{ flex: 1 }}
         />
 
         <AddWithSuggestions
-          style={{ flex: 1 }}
-          items={this.state.items}
           handleAddItem={this.addItem}
+          items={this.state.items}
+          style={{ flex: 1 }}
         />
       </KeyboardAvoidingView>
     );
@@ -114,6 +188,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 20,
+    marginTop: 0,
   },
 });

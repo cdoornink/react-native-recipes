@@ -13,13 +13,12 @@ import RecipeListItem from 'components/recipes/recipe-list-item';
 
 export default class Recipes extends React.Component {
   static propTypes = {
-    // handleAddToShoppingList: PropTypes.func.isRequired,
-    // handleRemoveFromShoppingList: PropTypes.func.isRequired,
     handleUpdateSortMethod: PropTypes.func.isRequired,
     navigation: PropTypes.object.isRequired,
     recipes: PropTypes.array,
     sortMethod: PropTypes.string.isRequired,
     recipeImages: PropTypes.object.isRequired,
+    toggleOnShoppingList: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -47,18 +46,18 @@ export default class Recipes extends React.Component {
     this.setState({ modalVisible: visible });
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.items !== this.props.items) {
-  //     this.setState({ sortedList: this.sortShoppingList(nextProps.items) });
-  //   }
-  // }
-  //
+  toggleOnShoppingList(recipe) {
+    this.props.toggleOnShoppingList(recipe);
+  }
+
   renderRecipeListItem(recipe) {
     return (
       <RecipeListItem
         navigation={this.props.navigation}
         recipe={recipe}
+        onShoppingList={recipe.onShoppingList}
         imageSource={this.props.recipeImages[recipe.id]}
+        toggleOnShoppingList={this.props.toggleOnShoppingList}
       />
     );
   }
@@ -84,8 +83,6 @@ export default class Recipes extends React.Component {
             value={this.state.newItemText}
           />
           <View style={styles.sortingInfoContainer}>
-
-
             <TouchableHighlight onPress={() => this.setModalVisible(true)}>
               <Text style={styles.sortingInfoText}>
                 Sort by: {this.props.sortMethod}
@@ -97,8 +94,7 @@ export default class Recipes extends React.Component {
           style={styles.recipesListContainer}
           data={filteredRecipes}
           renderItem={({ item }) => this.renderRecipeListItem(item)}
-          removeClippedSubviews={false}
-          key={`sorted By ${this.props.sortMethod}`}
+          extraData={this.props.sortMethod}
         />
         <ModalWithPicker
           visible={this.state.modalVisible}
@@ -122,6 +118,7 @@ const styles = StyleSheet.create({
     alignContent: 'space-between',
     paddingBottom: 10,
     paddingTop: 30,
+    backgroundColor: '#6696B0',
   },
   filterContainerTextInput: {
     flex: 1,
@@ -130,7 +127,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 15,
     marginLeft: 10,
-    backgroundColor: '#eee',
+    backgroundColor: 'white',
     borderRadius: 15,
   },
   sortingInfoContainer: {
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
     paddingTop: 6,
   },
   sortingInfoText: {
-    color: '#999',
+    color: 'white',
   },
   recipesListContainer: {
     paddingTop: 20,

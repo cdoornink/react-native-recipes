@@ -32,7 +32,7 @@ Recipes = [
   {
     id: 'orzo-soup',
     title: 'Escarole and Orzo Soup with Turkey Meatballs',
-    short: 'Smitten Kitchen Orzo Soup',
+    short: 'Orzo Meatball Soup',
     serves: 4,
     ingredients: [
       {name: 'egg', amount: '1 large'},

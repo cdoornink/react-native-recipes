@@ -21,17 +21,21 @@ export default class RecipesContainer extends React.Component {
     super(...args);
 
     this.recipesRef = firebaseApp.database().ref('recipes');
+    this.shoppingListRef = firebaseApp.database().ref('shoppingList');
 
     this.updateSortMethod = this.updateSortMethod.bind(this);
+    this.toggleOnShoppingList = this.toggleOnShoppingList.bind(this);
 
     this.state = {
       recipes: [],
+      shoppingList: [],
       sortMethod: 'Alphabetical',
     };
   }
 
   componentDidMount() {
     this.listenForRecipes(this.recipesRef);
+    this.listenForShoppingList(this.shoppingListRef);
   }
 
   listenForRecipes(recipesRef) {
@@ -51,20 +55,52 @@ export default class RecipesContainer extends React.Component {
     });
   }
 
-  addToShoppingList(recipe) {
-    console.log('add', recipe.title, 'to shopping list');
-  }
-
-  removeFromShoppingList(recipe) {
-    console.log('remove', recipe.title, 'from shopping list');
+  listenForShoppingList(itemsRef) {
+    itemsRef.on('value', (snap) => {
+      const shoppingList = [];
+      snap.forEach((child) => {
+        if (child.val().recipeKey) {
+          shoppingList.push({
+            key: child.key,
+            ...child.val(),
+          });
+        }
+      });
+      this.setState({
+        shoppingList,
+      });
+    });
   }
 
   updateSortMethod(method) {
     this.setState({ sortMethod: method });
   }
 
-  getRecipe(id) {
-    return this.state.recipes.find(recipe => recipe.key === id);
+  toggleOnShoppingList(recipe) {
+    if (recipe.onShoppingList) {
+      this.removeRecipeFromShoppingList(recipe);
+    } else {
+      this.addRecipeToShoppingList(recipe);
+    }
+  }
+
+  addRecipeToShoppingList(recipe) {
+    this.shoppingListRef.push({ recipeKey: recipe.key });
+
+    firebaseApp.database().ref(`recipes/${recipe.key}`).set({
+      ...recipe,
+      onShoppingList: true,
+    });
+  }
+
+  removeRecipeFromShoppingList(recipe) {
+    const keyToRemove = this.state.shoppingList.find(i => i.recipeKey === recipe.key);
+    this.shoppingListRef.child(keyToRemove.key).remove();
+
+    firebaseApp.database().ref(`recipes/${recipe.key}`).set({
+      ...recipe,
+      onShoppingList: false,
+    });
   }
 
   render() {
@@ -76,24 +112,22 @@ export default class RecipesContainer extends React.Component {
       renderPage = (
         <Recipe
           style={{ flex: 1 }}
-          handleAddToShoppingList={this.addToShoppingList}
-          handleRemoveFromShoppingList={this.removeFromShoppingList}
           navigation={this.props.navigation}
-          recipe={this.getRecipe(id)}
+          recipe={this.state.recipes.find(recipe => recipe.key === id)}
           recipeImages={recipeImages}
+          toggleOnShoppingList={this.toggleOnShoppingList}
         />
       );
     } else {
       const sortedRecipes = sortRecipes(this.state.recipes, this.state.sortMethod);
       renderPage = (
         <Recipes
-          handleAddToShoppingList={this.addToShoppingList}
-          handleRemoveFromShoppingList={this.removeFromShoppingList}
           handleUpdateSortMethod={this.updateSortMethod}
           navigation={this.props.navigation}
           recipes={sortedRecipes}
           sortMethod={this.state.sortMethod}
           recipeImages={recipeImages}
+          toggleOnShoppingList={this.toggleOnShoppingList}
         />
       );
     }

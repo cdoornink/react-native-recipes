@@ -8,16 +8,16 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
 } from 'react-native';
 
 export default class Recipes extends React.Component {
   static propTypes = {
-    handleAddToShoppingList: PropTypes.func.isRequired,
-    handleRemoveFromShoppingList: PropTypes.func.isRequired,
     navigation: PropTypes.object.isRequired,
     recipe: PropTypes.object.isRequired,
     recipeImages: PropTypes.object.isRequired,
+    toggleOnShoppingList: PropTypes.func.isRequired,
   };
 
   getRecipeIngredients() {
@@ -57,6 +57,8 @@ export default class Recipes extends React.Component {
   render() {
     const { recipe } = this.props;
 
+    const backPath = this.props.navigation.state.params.referer || ['Recipes', { id: null }];
+
     return (
       <ScrollView
         style={{ flex: 1 }}
@@ -64,7 +66,7 @@ export default class Recipes extends React.Component {
       >
         <View style={styles.mainImageContainer}>
           <Text
-            onPress={() => this.props.navigation.navigate('Recipes', { id: null })}
+            onPress={() => this.props.navigation.navigate(...backPath)}
             style={styles.backButton}
           >Back</Text>
           <Image
@@ -72,7 +74,16 @@ export default class Recipes extends React.Component {
             style={styles.mainImage}
             resizeMode="cover"
           >
-            <View style={styles.mainImageOverlay} />
+            <View style={styles.mainImageOverlay}>
+              <TouchableHighlight
+                onPress={() => this.props.toggleOnShoppingList(recipe)}
+                style={styles.recipeAddToListButton}
+              >
+                <Text style={{ textAlign: 'center' }}>
+                  {this.props.recipe.onShoppingList ? 'Remove from list' : 'Add to list'}
+                </Text>
+              </TouchableHighlight>
+            </View>
           </Image>
         </View>
 
