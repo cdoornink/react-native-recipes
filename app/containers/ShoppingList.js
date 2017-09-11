@@ -3,6 +3,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
 } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import firebaseApp from 'app/lib/firebase';
 
@@ -12,6 +13,9 @@ import ShoppingList from 'components/shoppingList';
 export default class ShoppingListContainer extends React.Component {
   static navigationOptions = {
     title: 'Shopping List',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="shopping-cart" color={tintColor} />
+    ),
   };
 
   static propTypes = {

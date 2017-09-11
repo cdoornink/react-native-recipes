@@ -7,7 +7,9 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import { Button } from 'react-native-elements';
 
+import { Colors } from 'constants/colors';
 
 export default class RecipeListItem extends React.Component {
   static propTypes = {
@@ -36,16 +38,17 @@ export default class RecipeListItem extends React.Component {
   }
 
   render() {
-    let actionButton = 'Add to List';
+    let actionIcon = 'add-shopping-cart';
+    let actionColor = Colors.text.grey;
 
     if (this.props.onlyShowRemoveButton || this.props.onShoppingList) {
-      actionButton = 'Remove From List';
+      actionIcon = 'done';
+      actionColor = Colors.complete;
     }
     if (this.props.onMenu) {
+      actionIcon = 'done';
       if (this.props.recipe.markAsMade) {
-        actionButton = 'Mark as Unmade';
-      } else {
-        actionButton = 'Mark as Made';
+        actionColor = Colors.complete;
       }
     }
 
@@ -74,14 +77,18 @@ export default class RecipeListItem extends React.Component {
           >
             {this.props.recipe.title}
           </Text>
-          <TouchableHighlight
+          <Button
+            backgroundColor="transparent"
+            buttonStyle={{ padding: 0 }}
+            icon={{
+              color: this.props.stylesheet === 'full' ? actionColor : Colors.delete,
+              name: this.props.stylesheet === 'full' ? actionIcon : 'remove',
+              size: this.props.stylesheet === 'full' ? 30 : 20,
+              style: { marginRight: 0 },
+            }}
             onPress={() => this.handleActionButtonClick()}
             style={styles.recipeAddToListButton}
-          >
-            <Text style={{ textAlign: 'center' }}>
-              {actionButton}
-            </Text>
-          </TouchableHighlight>
+          />
         </View>
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate('Recipes', navParams)}
@@ -113,22 +120,20 @@ const fullSize = StyleSheet.create({
   recipeListItemTopRow: {
     flex: 1,
     flexDirection: 'row',
-    alignContent: 'space-between',
+    alignItems: 'center',
   },
   recipeTitle: {
-    flex: 4,
     fontSize: 16,
     fontWeight: '600',
     paddingTop: 1,
     paddingBottom: 8,
     color: '#333',
+    alignItems: 'flex-start',
+    flex: 1,
   },
   recipeAddToListButton: {
-    flex: 1,
-    paddingLeft: 5,
     paddingBottom: 8,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    width: 30,
   },
   mainImage: {
     width: deviceWidth - 35.5,

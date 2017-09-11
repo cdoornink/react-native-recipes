@@ -80,7 +80,7 @@ export default class AddWithSuggestions extends React.Component {
             <Text
               style={styles.addButton}
               onPress={() => this.addNewItem()}
-            >ADD</Text>
+            >Add to List</Text>
           }
         </View>
 
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
   },
   textInput: {
-    flex: 4,
+    flex: 2,
     height: 50,
     padding: 15,
   },
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: Colors.primaryButtonBGColor,
     color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '500',
     textAlign: 'center',
     paddingTop: 12,
   },

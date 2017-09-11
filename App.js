@@ -1,14 +1,21 @@
 import React from 'react';
 import { TabNavigator } from 'react-navigation';
 
+import Drinks from 'containers/Drinks';
 import Menu from 'containers/Menu';
 import Recipes from 'containers/Recipes';
 import ShoppingList from 'containers/ShoppingList';
+
+import { Colors } from 'constants/colors';
 
 const Navigation = TabNavigator({
   Recipes: {
     screen: Recipes,
     path: 'recipes',
+  },
+  Drinks: {
+    screen: Drinks,
+    path: 'drinks',
   },
   ShoppingList: {
     screen: ShoppingList,
@@ -21,9 +28,8 @@ const Navigation = TabNavigator({
   // Menu: { screen: Menu },
 }, {
   initialRouteName: 'Recipes',
-}, {
   tabBarOptions: {
-    activeTintColor: '#e91e63',
+    activeTintColor: Colors.text.primary,
   },
 });
 

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Icon } from 'react-native-elements';
 
 import Menu from 'components/menu';
 
@@ -10,6 +11,9 @@ import { recipeImages } from 'app/lib/utils';
 export default class MenuContainer extends React.Component {
   static navigationOptions = {
     title: 'Menu',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="restaurant-menu" color={tintColor} />
+    ),
   };
 
   static propTypes = {

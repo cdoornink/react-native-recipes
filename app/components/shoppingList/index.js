@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import Swipeout from 'react-native-swipeout';
+import { Button } from 'react-native-elements';
 
 import { Aisles, AisleDesignations } from 'constants/aisles';
 import RecipeListItem from 'components/recipes/recipe-list-item';
@@ -149,12 +150,16 @@ export default class ShoppingList extends React.Component {
   renderShoppingListAisleHeader(section) {
     if (section.doneButton) {
       return (
-        <Text
-          style={styles.doneButton}
+
+        <Button
+          raised
+          icon={{ name: 'shopping-cart', size: 32 }}
+          buttonStyle={{ backgroundColor: Colors.complete }}
+          textStyle={{ textAlign: 'center' }}
+          title="Finished Shopping"
           onPress={() => this.props.handleDoneButtonPress()}
-        >
-          Finished Shopping
-        </Text>
+          style={{ marginVertical: 30 }}
+        />
       );
     }
     return (
@@ -220,9 +225,15 @@ export default class ShoppingList extends React.Component {
         }
 
         {emptyList &&
-          <Text style={styles.emptyMessage}>
-            There is nothing on your shopping list. :(
-          </Text>
+          <View>
+            <Text style={styles.emptyMessage}>
+              There is nothing on your shopping list. :(
+            </Text>
+            <Text style={styles.emptyMessage}>
+              It’s okay though! You can add items by typing in that search field below.
+              Or by picking some recipes from the Recipes section.
+            </Text>
+          </View>
         }
 
       </View>
@@ -268,12 +279,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   doneButton: {
-    textAlign: 'center',
-    paddingVertical: 20,
-    marginVertical: 20,
-    fontSize: 24,
-    backgroundColor: Colors.delete,
-    color: Colors.text.light,
+    marginVertical: 30,
   },
   emptyMessage: {
     padding: 50,

@@ -7,9 +7,12 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import { Button } from 'react-native-elements';
 
 import ModalWithPicker from 'components/shared/modal-with-picker';
 import RecipeListItem from 'components/recipes/recipe-list-item';
+
+import { Colors } from 'constants/colors';
 
 export default class Recipes extends React.Component {
   static propTypes = {
@@ -83,11 +86,13 @@ export default class Recipes extends React.Component {
             value={this.state.newItemText}
           />
           <View style={styles.sortingInfoContainer}>
-            <TouchableHighlight onPress={() => this.setModalVisible(true)}>
-              <Text style={styles.sortingInfoText}>
-                Sort by: {this.props.sortMethod}
-              </Text>
-            </TouchableHighlight>
+            <Button
+              backgroundColor="transparent"
+              buttonStyle={{ padding: 0 }}
+              icon={{ name: 'sort' }}
+              title={this.props.sortMethod}
+              onPress={() => this.setModalVisible(true)}
+            />
           </View>
         </View>
         <FlatList
@@ -95,6 +100,7 @@ export default class Recipes extends React.Component {
           data={filteredRecipes}
           renderItem={({ item }) => this.renderRecipeListItem(item)}
           extraData={this.props.sortMethod}
+          removeClippedSubviews={false}
         />
         <ModalWithPicker
           visible={this.state.modalVisible}

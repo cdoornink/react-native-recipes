@@ -11,9 +11,9 @@ import { sortRecipes, recipeImages } from 'app/lib/utils';
 
 export default class RecipesContainer extends React.Component {
   static navigationOptions = {
-    title: 'Recipes',
+    title: 'Drinks',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="library-books" color={tintColor} />
+      <Icon name="local-bar" color={tintColor} />
     ),
   };
 

@@ -75,6 +75,8 @@ export default class Menu extends React.Component {
   }
 
   render() {
+    const emptyMenu = !this.props.recipes.length;
+
     return (
       <View style={{ flex: 1, alignSelf: 'stretch' }}>
         <View style={styles.headerContainer}>
@@ -82,6 +84,13 @@ export default class Menu extends React.Component {
             Menu
           </Text>
         </View>
+
+        {emptyMenu &&
+          <Text style={styles.emptyMessage}>
+            Damn. There is nothing on the menu. Order in?
+          </Text>
+        }
+
         <SectionList
           renderItem={({ item }) => this.renderRecipeListItem(item)}
           renderSectionHeader={({ section }) => this.renderMenuHeader(section)}
@@ -152,5 +161,9 @@ const styles = StyleSheet.create({
   },
   recipePadding: {
     marginHorizontal: 10,
+  },
+  emptyMessage: {
+    padding: 50,
+    textAlign: 'center',
   },
 });
