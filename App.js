@@ -1,17 +1,22 @@
 import React from 'react';
 import { TabNavigator } from 'react-navigation';
 
+import Menu from 'containers/Menu';
 import Recipes from 'containers/Recipes';
 import ShoppingList from 'containers/ShoppingList';
 
 const Navigation = TabNavigator({
   Recipes: {
     screen: Recipes,
-    path: 'recipe/:id',
+    path: 'recipes',
   },
   ShoppingList: {
     screen: ShoppingList,
-    path: 'shopping-list/:id',
+    path: 'shopping-list',
+  },
+  Menu: {
+    screen: Menu,
+    path: 'menu',
   },
   // Menu: { screen: Menu },
 }, {

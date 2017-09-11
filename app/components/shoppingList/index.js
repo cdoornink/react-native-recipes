@@ -168,11 +168,11 @@ export default class ShoppingList extends React.Component {
     return (
       <RecipeListItem
         navigation={this.props.navigation}
-        navReferer={['ShoppingList']}
+        navReferer="ShoppingList"
         recipe={recipe}
         onShoppingList={recipe.onShoppingList}
         imageSource={recipeImages[recipe.id]}
-        toggleOnShoppingList={this.props.handleRemoveRecipe}
+        handleActionButtonClick={this.props.handleRemoveRecipe}
         onlyShowRemoveButton
         stylesheet="small"
       />
@@ -180,7 +180,6 @@ export default class ShoppingList extends React.Component {
   }
 
   render() {
-    console.log(this.props.recipes, this.props.items);
     const emptyList = !this.props.recipes.length && !this.props.items.length;
 
     return (

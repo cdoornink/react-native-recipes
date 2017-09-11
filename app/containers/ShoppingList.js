@@ -24,6 +24,7 @@ export default class ShoppingListContainer extends React.Component {
     this.recipesRef = firebaseApp.database().ref('recipes');
     this.itemsRef = firebaseApp.database().ref('items');
     this.shoppingListRef = firebaseApp.database().ref('shoppingList');
+    this.menuRef = firebaseApp.database().ref('menu');
 
     this.addItem = this.addItem.bind(this);
     this.clearShoppingList = this.clearShoppingList.bind(this);
@@ -130,16 +131,16 @@ export default class ShoppingListContainer extends React.Component {
   }
 
   clearShoppingList() {
-    // TODO if list has recipes, replace the Menu
-
-    // then do this
     this.shoppingListRef.remove();
+    this.menuRef.remove();
 
     this.state.recipesOnList.forEach((recipe) => {
-      console.log(recipe);
+      this.menuRef.push({ recipeKey: recipe.key });
+
       firebaseApp.database().ref(`recipes/${recipe.key}`).set({
         ...recipe,
         onShoppingList: false,
+        markAsMade: false,
       });
     });
   }
@@ -158,7 +159,6 @@ export default class ShoppingListContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state.recipesOnList);
     // const { navigate, state } = this.props.navigation;
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>

@@ -12,6 +12,9 @@ import {
   View,
 } from 'react-native';
 
+import { NavigationActions } from 'react-navigation';
+
+
 export default class Recipes extends React.Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
@@ -54,10 +57,25 @@ export default class Recipes extends React.Component {
     ));
   }
 
+  handleBackButtonClick() {
+    const backPath = this.props.navigation.state.params.referer;
+
+    const setParamsAction = NavigationActions.setParams({
+      params: { id: null, referer: null },
+      key: 'Recipes',
+      // not sure why, but this doesn't seem to work at all
+      // If you can't figure this out, you might as well
+      // make this back button always go to "Recipes, { id: null }"
+      action: NavigationActions.navigate({ routeName: backPath }),
+    });
+    this.props.navigation.dispatch(setParamsAction);
+
+    // this.props.navigation.navigate(backPath);
+  }
+
   render() {
     const { recipe } = this.props;
 
-    const backPath = this.props.navigation.state.params.referer || ['Recipes', { id: null }];
 
     return (
       <ScrollView
@@ -66,7 +84,7 @@ export default class Recipes extends React.Component {
       >
         <View style={styles.mainImageContainer}>
           <Text
-            onPress={() => this.props.navigation.navigate(...backPath)}
+            onPress={() => this.handleBackButtonClick()}
             style={styles.backButton}
           >Back</Text>
           <Image

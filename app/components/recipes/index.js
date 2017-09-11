@@ -57,7 +57,7 @@ export default class Recipes extends React.Component {
         recipe={recipe}
         onShoppingList={recipe.onShoppingList}
         imageSource={this.props.recipeImages[recipe.id]}
-        toggleOnShoppingList={this.props.toggleOnShoppingList}
+        handleActionButtonClick={this.props.toggleOnShoppingList}
       />
     );
   }

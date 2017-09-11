@@ -15,27 +15,39 @@ export default class RecipeListItem extends React.Component {
     recipe: PropTypes.object.isRequired,
     imageSource: PropTypes.number,
     onlyShowRemoveButton: PropTypes.bool,
+    onMenu: PropTypes.bool,
     onShoppingList: PropTypes.bool,
     stylesheet: PropTypes.string,
-    toggleOnShoppingList: PropTypes.func.isRequired,
-    navReferer: PropTypes.array,
+    handleActionButtonClick: PropTypes.func.isRequired,
+    navReferer: PropTypes.string,
   }
 
   static defaultProps = {
     imageSource: null,
     onlyShowRemoveButton: false,
+    onMenu: false,
     onShoppingList: false,
     stylesheet: 'full',
-    navReferer: ['Recipes', { id: null }],
+    navReferer: 'Recipes',
   }
 
-  toggleOnShoppingList() {
-    this.props.toggleOnShoppingList(this.props.recipe);
+  handleActionButtonClick() {
+    this.props.handleActionButtonClick(this.props.recipe);
   }
 
   render() {
-    const actionButton = this.props.onlyShowRemoveButton || this.props.onShoppingList ?
-      'Remove From List' : 'Add to List';
+    let actionButton = 'Add to List';
+
+    if (this.props.onlyShowRemoveButton || this.props.onShoppingList) {
+      actionButton = 'Remove From List';
+    }
+    if (this.props.onMenu) {
+      if (this.props.recipe.markAsMade) {
+        actionButton = 'Mark as Unmade';
+      } else {
+        actionButton = 'Mark as Made';
+      }
+    }
 
     const styles = this.props.stylesheet === 'full' ? fullSize : smallSize;
 
@@ -63,7 +75,7 @@ export default class RecipeListItem extends React.Component {
             {this.props.recipe.title}
           </Text>
           <TouchableHighlight
-            onPress={() => this.toggleOnShoppingList()}
+            onPress={() => this.handleActionButtonClick()}
             style={styles.recipeAddToListButton}
           >
             <Text style={{ textAlign: 'center' }}>
