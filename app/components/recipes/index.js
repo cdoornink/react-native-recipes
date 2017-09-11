@@ -2,9 +2,7 @@ import React, { PropTypes } from 'react';
 import {
   FlatList,
   StyleSheet,
-  Text,
   TextInput,
-  TouchableHighlight,
   View,
 } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
     alignContent: 'space-between',
     paddingBottom: 10,
     paddingTop: 30,
-    backgroundColor: '#6696B0',
+    backgroundColor: Colors.primary,
   },
   filterContainerTextInput: {
     flex: 1,

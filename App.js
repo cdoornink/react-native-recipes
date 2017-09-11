@@ -33,6 +33,7 @@ const Navigation = TabNavigator({
   },
 });
 
+/* eslint react/prefer-stateless-function: "off" */
 export default class App extends React.Component {
   render() {
     return (

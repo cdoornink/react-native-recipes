@@ -23,6 +23,22 @@ export default class Recipes extends React.Component {
     toggleOnShoppingList: PropTypes.func.isRequired,
   };
 
+  handleBackButtonClick() {
+    const backPath = this.props.navigation.state.params.referer;
+
+    const setParamsAction = NavigationActions.setParams({
+      params: { id: null, referer: null },
+      key: 'Recipes',
+      // not sure why, but this doesn't seem to work at all
+      // If you can't figure this out, you might as well
+      // make this back button always go to "Recipes, { id: null }"
+      action: NavigationActions.navigate({ routeName: backPath }),
+    });
+    this.props.navigation.dispatch(setParamsAction);
+
+    // this.props.navigation.navigate(backPath);
+  }
+
   getRecipeIngredients() {
     return this.props.recipe.ingredients.map((ingredient, index) => {
       if (ingredient.section) {
@@ -55,22 +71,6 @@ export default class Recipes extends React.Component {
         {instruction}
       </Text>
     ));
-  }
-
-  handleBackButtonClick() {
-    const backPath = this.props.navigation.state.params.referer;
-
-    const setParamsAction = NavigationActions.setParams({
-      params: { id: null, referer: null },
-      key: 'Recipes',
-      // not sure why, but this doesn't seem to work at all
-      // If you can't figure this out, you might as well
-      // make this back button always go to "Recipes, { id: null }"
-      action: NavigationActions.navigate({ routeName: backPath }),
-    });
-    this.props.navigation.dispatch(setParamsAction);
-
-    // this.props.navigation.navigate(backPath);
   }
 
   render() {
@@ -205,97 +205,97 @@ const styles = StyleSheet.create({
 
 });
 
-const styles2 = StyleSheet.create({
-  mainImageContainer: {
-    alignItems: 'center',
-    height: 250,
-    backgroundColor: '#333',
-  },
-  mainImage: {
-    height: 250,
-    width: deviceWidth,
-    position: 'relative',
-  },
-  mainImageOverlay: {
-    backgroundColor: 'rgba(0,0,0,0)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    width: 'auto',
-  },
-  backButton: {
-    color: 'white',
-    fontSize: 20,
-    position: 'absolute',
-    top: 25,
-    left: 15,
-    zIndex: 1,
-    backgroundColor: 'rgba(0,0,0,0)',
-  },
-  recipeTitle: {
-    fontSize: 24,
-    color: '#222',
-    fontWeight: '600',
-    paddingVertical: 20,
-    textAlign: 'center',
-  },
-  recipeContentContainer: {
-    paddingHorizontal: 10,
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  ingredientsContainer: {
-    flex: 1,
-    padding: 20,
-    marginBottom: 30,
-    backgroundColor: 'white',
-    shadowOffset: { width: 0, height: 0 },
-    shadowColor: '#aaa',
-    shadowOpacity: 1,
-    shadowRadius: 10,
-  },
-  instructionsContainer: {
-    flex: 1,
-    padding: 20,
-    marginBottom: 30,
-    backgroundColor: 'white',
-    shadowOffset: { width: 0, height: 0 },
-    shadowColor: '#aaa',
-    shadowOpacity: 1,
-    shadowRadius: 10,
-  },
-  sectionHeader: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#444',
-    paddingBottom: 10,
-  },
-  ingredientSectionText: {
-    fontWeight: '700',
-    paddingTop: 10,
-    paddingBottom: 5,
-    fontSize: 16,
-    textDecorationLine: 'underline',
-    textDecorationStyle: 'solid',
-    textDecorationColor: '#000',
-  },
-  ingredient: {
-    lineHeight: 24,
-  },
-  ingredientText: {
-    fontSize: 16,
-    fontWeight: '400',
-  },
-  ingredientAmountText: {
-    marginRight: 10,
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '300',
-  },
-  instructionText: {
-    lineHeight: 20,
-    paddingVertical: 5,
-    fontSize: 16,
-  },
-
-});
+// const styles2 = StyleSheet.create({
+//   mainImageContainer: {
+//     alignItems: 'center',
+//     height: 250,
+//     backgroundColor: '#333',
+//   },
+//   mainImage: {
+//     height: 250,
+//     width: deviceWidth,
+//     position: 'relative',
+//   },
+//   mainImageOverlay: {
+//     backgroundColor: 'rgba(0,0,0,0)',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     flex: 1,
+//     width: 'auto',
+//   },
+//   backButton: {
+//     color: 'white',
+//     fontSize: 20,
+//     position: 'absolute',
+//     top: 25,
+//     left: 15,
+//     zIndex: 1,
+//     backgroundColor: 'rgba(0,0,0,0)',
+//   },
+//   recipeTitle: {
+//     fontSize: 24,
+//     color: '#222',
+//     fontWeight: '600',
+//     paddingVertical: 20,
+//     textAlign: 'center',
+//   },
+//   recipeContentContainer: {
+//     paddingHorizontal: 10,
+//     flex: 1,
+//     backgroundColor: '#fff',
+//   },
+//   ingredientsContainer: {
+//     flex: 1,
+//     padding: 20,
+//     marginBottom: 30,
+//     backgroundColor: 'white',
+//     shadowOffset: { width: 0, height: 0 },
+//     shadowColor: '#aaa',
+//     shadowOpacity: 1,
+//     shadowRadius: 10,
+//   },
+//   instructionsContainer: {
+//     flex: 1,
+//     padding: 20,
+//     marginBottom: 30,
+//     backgroundColor: 'white',
+//     shadowOffset: { width: 0, height: 0 },
+//     shadowColor: '#aaa',
+//     shadowOpacity: 1,
+//     shadowRadius: 10,
+//   },
+//   sectionHeader: {
+//     fontSize: 18,
+//     fontWeight: '500',
+//     color: '#444',
+//     paddingBottom: 10,
+//   },
+//   ingredientSectionText: {
+//     fontWeight: '700',
+//     paddingTop: 10,
+//     paddingBottom: 5,
+//     fontSize: 16,
+//     textDecorationLine: 'underline',
+//     textDecorationStyle: 'solid',
+//     textDecorationColor: '#000',
+//   },
+//   ingredient: {
+//     lineHeight: 24,
+//   },
+//   ingredientText: {
+//     fontSize: 16,
+//     fontWeight: '400',
+//   },
+//   ingredientAmountText: {
+//     marginRight: 10,
+//     fontSize: 16,
+//     color: '#333',
+//     fontWeight: '300',
+//   },
+//   instructionText: {
+//     lineHeight: 20,
+//     paddingVertical: 5,
+//     fontSize: 16,
+//   },
+//
+// });
