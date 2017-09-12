@@ -98,10 +98,19 @@ export default class ShoppingList extends React.Component {
           break;
         }
       }
-      sortedShoppingList.find(i => i.name === matchingAisle).data.push({
-        ...listItem,
-        itemChecked,
-      });
+
+      const aisleData = sortedShoppingList.find(i => i.name === matchingAisle).data;
+
+      const itemMatch = aisleData.find(i => i.title.toLowerCase() === listItem.title.toLowerCase());
+
+      if (itemMatch) {
+        itemMatch.recipeIndex = `${itemMatch.recipeIndex}, ${listItem.recipeIndex}`;
+      } else {
+        aisleData.push({
+          ...listItem,
+          itemChecked,
+        });
+      }
     });
 
     // remove sections that don't have any items
