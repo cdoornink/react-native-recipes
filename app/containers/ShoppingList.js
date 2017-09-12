@@ -78,10 +78,15 @@ export default class ShoppingListContainer extends React.Component {
         } else {
           // If not an ingredient, its a recipe. Find the recipe and pull out the ingredients needed
           const recipe = this.state.recipes[child.val().recipeKey];
+
+          const recipeIndex = recipesOnList.length + 1;
+
           recipesOnList.push({
             ...recipe,
             shoppingListKey: child.key,
+            recipeIndex,
           });
+
 
           let listIngredients = [];
           if (recipe && recipe.ingredients) {
@@ -93,6 +98,7 @@ export default class ShoppingListContainer extends React.Component {
               title: ingredient.name,
               key: `${ingredient.name}-${child.key}`,
               recipeKey: recipe.key,
+              recipeIndex,
             });
           });
         }

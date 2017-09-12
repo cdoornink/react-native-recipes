@@ -22,10 +22,12 @@ export default class RecipeListItem extends React.Component {
     stylesheet: PropTypes.string,
     handleActionButtonClick: PropTypes.func.isRequired,
     navReferer: PropTypes.string,
+    numbered: PropTypes.bool,
   }
 
   static defaultProps = {
     imageSource: null,
+    numbered: false,
     onlyShowRemoveButton: false,
     onMenu: false,
     onShoppingList: false,
@@ -71,6 +73,14 @@ export default class RecipeListItem extends React.Component {
               resizeMode="cover"
             />
           </TouchableHighlight>
+          {this.props.numbered &&
+            <Text
+              onPress={() => this.props.navigation.navigate('Recipes', navParams)}
+              style={styles.recipeTitleNumber}
+            >
+              {this.props.recipe.recipeIndex}
+            </Text>
+          }
           <Text
             onPress={() => this.props.navigation.navigate('Recipes', navParams)}
             style={styles.recipeTitle}
@@ -159,19 +169,24 @@ const smallSize = StyleSheet.create({
     alignItems: 'center',
   },
   recipeTitle: {
-    flex: 4,
+    flex: 12,
     fontSize: 14,
     fontWeight: '600',
     paddingTop: 3,
     paddingBottom: 3,
     color: '#333',
   },
-  recipeAddToListButton: {
+  recipeTitleNumber: {
     flex: 1,
-    paddingLeft: 5,
+    fontSize: 14,
+    fontWeight: '600',
+    paddingTop: 3,
     paddingBottom: 3,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    color: Colors.primaryDark,
+  },
+  recipeAddToListButton: {
+    flex: 2,
+    justifyContent: 'center',
   },
   mainImage: {
     display: 'none',

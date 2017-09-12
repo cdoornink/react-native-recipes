@@ -141,7 +141,19 @@ export default class ShoppingList extends React.Component {
           }}
           onPress={() => this.toggleCheckedItem(item.key)}
         >
-          {item.title.toLowerCase()}
+          {item.title.toLowerCase()} {' '}
+          {item.recipeIndex &&
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: 'bold',
+                marginLeft: 10,
+                color: Colors.primaryDark,
+              }}
+            >
+              {item.recipeIndex}
+            </Text>
+          }
         </Text>
       </Swipeout>
     );
@@ -180,6 +192,7 @@ export default class ShoppingList extends React.Component {
         handleActionButtonClick={this.props.handleRemoveRecipe}
         onlyShowRemoveButton
         stylesheet="small"
+        numbered
       />
     );
   }
