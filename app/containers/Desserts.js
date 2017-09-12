@@ -9,12 +9,12 @@ import firebaseApp from 'app/lib/firebase';
 import { sortRecipes, recipeImages } from 'app/lib/utils';
 
 
-export default class RecipesContainer extends React.Component {
+export default class DessertsContainer extends React.Component {
   static navigationOptions = {
-    title: 'Meals',
+    title: 'Desserts',
     tabBarIcon: ({ tintColor }) => (
       <Icon
-        name="hamburger"
+        name="cookie"
         color={tintColor}
         type="material-community"
       />

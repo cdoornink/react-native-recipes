@@ -1,6 +1,7 @@
 import React from 'react';
 import { TabNavigator } from 'react-navigation';
 
+import Desserts from 'containers/Desserts';
 import Drinks from 'containers/Drinks';
 import Menu from 'containers/Menu';
 import Recipes from 'containers/Recipes';
@@ -12,6 +13,10 @@ const Navigation = TabNavigator({
   Recipes: {
     screen: Recipes,
     path: 'recipes',
+  },
+  Desserts: {
+    screen: Desserts,
+    path: 'desserts',
   },
   Drinks: {
     screen: Drinks,

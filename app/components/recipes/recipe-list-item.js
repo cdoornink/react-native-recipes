@@ -42,13 +42,20 @@ export default class RecipeListItem extends React.Component {
   render() {
     let actionIcon = 'add-shopping-cart';
     let actionColor = Colors.text.grey;
+    let actionType = 'material';
 
-    if (this.props.onlyShowRemoveButton || this.props.onShoppingList) {
+    if (this.props.onShoppingList) {
       actionIcon = 'done';
       actionColor = Colors.complete;
     }
+    if (this.props.onlyShowRemoveButton) {
+      actionIcon = 'cross';
+      actionType = 'entypo';
+      actionColor = Colors.remove;
+    }
     if (this.props.onMenu) {
       actionIcon = 'done';
+      actionType = 'material';
       if (this.props.recipe.markAsMade) {
         actionColor = Colors.complete;
       }
@@ -91,10 +98,11 @@ export default class RecipeListItem extends React.Component {
             backgroundColor="transparent"
             buttonStyle={{ padding: 0 }}
             icon={{
-              color: this.props.stylesheet === 'full' ? actionColor : Colors.delete,
-              name: this.props.stylesheet === 'full' ? actionIcon : 'remove',
+              color: actionColor,
+              name: actionIcon,
               size: this.props.stylesheet === 'full' ? 30 : 20,
               style: { marginRight: 0 },
+              type: actionType,
             }}
             onPress={() => this.handleActionButtonClick()}
             style={styles.recipeAddToListButton}

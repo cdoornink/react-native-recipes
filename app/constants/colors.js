@@ -13,7 +13,7 @@ export const Colors = {
   tertiaryLight: '#A1A6D8',
   lightHeaderBG: '#F7F4F2',
   white: 'white',
-  delete: 'red',
+  delete: '#C65939',
   text: {
     light: 'white',
     grey: '#BBB',
