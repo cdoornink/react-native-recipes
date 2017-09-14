@@ -14,14 +14,14 @@ const Navigation = TabNavigator({
     screen: Recipes,
     path: 'recipes',
   },
-  Desserts: {
-    screen: Desserts,
-    path: 'desserts',
-  },
-  Drinks: {
-    screen: Drinks,
-    path: 'drinks',
-  },
+  // Desserts: {
+  //   screen: Desserts,
+  //   path: 'desserts',
+  // },
+  // Drinks: {
+  //   screen: Drinks,
+  //   path: 'drinks',
+  // },
   ShoppingList: {
     screen: ShoppingList,
     path: 'shopping-list',

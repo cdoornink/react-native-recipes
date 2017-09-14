@@ -11,9 +11,10 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-
+import { Icon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 
+import { Colors } from 'constants/colors';
 
 export default class Recipes extends React.Component {
   static propTypes = {
@@ -83,26 +84,34 @@ export default class Recipes extends React.Component {
         removeClippedSubviews={false}
       >
         <View style={styles.mainImageContainer}>
-          <Text
-            onPress={() => this.handleBackButtonClick()}
-            style={styles.backButton}
-          >Back</Text>
+          <Text style={styles.backButton}>
+            <View style={{ width: 40, height: 40 }}>
+              <Icon
+                size={32}
+                color="white"
+                name="ios-arrow-back"
+                type="ionicon"
+                onPress={() => this.handleBackButtonClick()}
+                iconStyle={styles.iconOverImage}
+              />
+            </View>
+          </Text>
+          <Text style={styles.cartButton}>
+            <View style={{ width: 40, height: 40 }}>
+              <Icon
+                size={32}
+                color="white"
+                name={this.props.recipe.onShoppingList ? 'remove-shopping-cart' : 'add-shopping-cart'}
+                onPress={() => this.props.toggleOnShoppingList(recipe)}
+                iconStyle={styles.iconOverImage}
+              />
+            </View>
+          </Text>
           <Image
             source={this.props.recipeImages[recipe.id]}
             style={styles.mainImage}
             resizeMode="cover"
-          >
-            <View style={styles.mainImageOverlay}>
-              <TouchableHighlight
-                onPress={() => this.props.toggleOnShoppingList(recipe)}
-                style={styles.recipeAddToListButton}
-              >
-                <Text style={{ textAlign: 'center' }}>
-                  {this.props.recipe.onShoppingList ? 'Remove from list' : 'Add to list'}
-                </Text>
-              </TouchableHighlight>
-            </View>
-          </Image>
+          />
         </View>
 
         <View style={styles.recipeContentContainer}>
@@ -143,12 +152,25 @@ const styles = StyleSheet.create({
   },
   backButton: {
     color: 'white',
-    fontSize: 20,
     position: 'absolute',
-    top: 25,
-    left: 15,
+    top: 30,
+    left: 0,
     zIndex: 1,
     backgroundColor: 'rgba(0,0,0,0)',
+  },
+  cartButton: {
+    color: 'white',
+    position: 'absolute',
+    top: 35,
+    right: 5,
+    zIndex: 1,
+    backgroundColor: 'rgba(0,0,0,0)',
+  },
+  iconOverImage: {
+    shadowOffset: { width: 0, height: 0 },
+    shadowColor: '#000',
+    shadowOpacity: 1,
+    shadowRadius: 6,
   },
   recipeTitle: {
     fontSize: 22,
@@ -189,7 +211,7 @@ const styles = StyleSheet.create({
   },
   ingredientText: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '500',
   },
   ingredientAmountText: {
     marginRight: 10,
