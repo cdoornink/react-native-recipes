@@ -15,7 +15,7 @@ export default class DessertsContainer extends React.Component {
     tabBarIcon: ({ tintColor }) => (
       <Icon
         name="cookie"
-        color="red"
+        color={tintColor}
         type="material-community"
       />
     ),
