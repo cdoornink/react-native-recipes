@@ -1,32 +1,80 @@
+function sortAlphabetical(recipes) {
+  return recipes.sort((a, b) => {
+    const nameA = a.title.toUpperCase(); // ignore upper and lowercase
+    const nameB = b.title.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+function sortReverseAlphabetical(recipes) {
+  return recipes.sort((a, b) => {
+    const nameA = a.title.toUpperCase(); // ignore upper and lowercase
+    const nameB = b.title.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return 1;
+    }
+    if (nameA > nameB) {
+      return -1;
+    }
+    return 0;
+  });
+}
+
+function sortPopular(recipes) {
+  const alphabeticalRecipes = sortAlphabetical(recipes);
+  return alphabeticalRecipes.sort((a, b) => {
+    if (a.popularity < b.popularity) {
+      return 1;
+    }
+    if (a.popularity > b.popularity) {
+      return -1;
+    }
+    return 0;
+  });
+}
+
+function sortLeastPopular(recipes) {
+  const alphabeticalRecipes = sortAlphabetical(recipes);
+  return alphabeticalRecipes.sort((a, b) => {
+    if (a.popularity < b.popularity) {
+      return -1;
+    }
+    if (a.popularity > b.popularity) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+/* eslint no-param-reassign: ["error", { "props": false }]*/
+export function assignPopularity(recipes, history) {
+  recipes.forEach((recipe) => {
+    recipe.popularity = history.reduce((n, val) => n + (val === recipe.key), 0);
+  });
+
+  return recipes;
+}
+
+
 export function sortRecipes(recipes, sortMethod) {
   // current methods: alphabetical, reverse alpha, recent, least recent, popular, least popular
 
   let sortedRecipes = recipes;
 
   if (sortMethod === 'Alphabetical') {
-    sortedRecipes = recipes.sort((a, b) => {
-      const nameA = a.title.toUpperCase(); // ignore upper and lowercase
-      const nameB = b.title.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    });
+    sortedRecipes = sortAlphabetical(recipes);
   } else if (sortMethod === 'Reverse Alpha') {
-    sortedRecipes = recipes.sort((a, b) => {
-      const nameA = a.title.toUpperCase(); // ignore upper and lowercase
-      const nameB = b.title.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return 1;
-      }
-      if (nameA > nameB) {
-        return -1;
-      }
-      return 0;
-    });
+    sortedRecipes = sortReverseAlphabetical(recipes);
+  } else if (sortMethod === 'Popular') {
+    sortedRecipes = sortPopular(recipes);
+  } else if (sortMethod === 'Least Popular') {
+    sortedRecipes = sortLeastPopular(recipes);
   }
 
   return sortedRecipes;

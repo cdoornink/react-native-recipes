@@ -6,7 +6,7 @@ import Recipe from 'components/recipe';
 
 import firebaseApp from 'app/lib/firebase';
 
-import { sortRecipes, recipeImages } from 'app/lib/utils';
+import { assignPopularity, sortRecipes, recipeImages } from 'app/lib/utils';
 
 
 export default class RecipesContainer extends React.Component {
@@ -30,6 +30,7 @@ export default class RecipesContainer extends React.Component {
 
     this.recipesRef = firebaseApp.database().ref('recipes');
     this.shoppingListRef = firebaseApp.database().ref('shoppingList');
+    this.menuHistoryRef = firebaseApp.database().ref('menuHistory');
 
     this.updateSortMethod = this.updateSortMethod.bind(this);
     this.toggleOnShoppingList = this.toggleOnShoppingList.bind(this);
@@ -44,6 +45,7 @@ export default class RecipesContainer extends React.Component {
   componentDidMount() {
     this.listenForRecipes(this.recipesRef);
     this.listenForShoppingList(this.shoppingListRef);
+    this.listenForMenuHistory(this.menuHistoryRef);
   }
 
   listenForRecipes(recipesRef) {
@@ -76,6 +78,22 @@ export default class RecipesContainer extends React.Component {
       });
       this.setState({
         shoppingList,
+      });
+    });
+  }
+
+  listenForMenuHistory(itemsRef) {
+    itemsRef.on('value', (snap) => {
+      const menuHistory = [];
+      snap.forEach((child) => {
+        menuHistory.push(child.val());
+      });
+      this.setState({
+        menuHistory,
+      }, () => {
+        this.setState({
+          recipes: assignPopularity(this.state.recipes, menuHistory),
+        });
       });
     });
   }
@@ -128,6 +146,7 @@ export default class RecipesContainer extends React.Component {
       );
     } else {
       const sortedRecipes = sortRecipes(this.state.recipes, this.state.sortMethod);
+
       renderPage = (
         <Recipes
           handleUpdateSortMethod={this.updateSortMethod}
