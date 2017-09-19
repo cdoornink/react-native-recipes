@@ -52,15 +52,45 @@ function sortLeastPopular(recipes) {
   });
 }
 
+function sortRecent(recipes) {
+  const alphabeticalRecipes = sortAlphabetical(recipes);
+  return alphabeticalRecipes.sort((a, b) => {
+    if (a.recency < b.recency) {
+      return 1;
+    }
+    if (a.recency > b.recency) {
+      return -1;
+    }
+    return 0;
+  });
+}
+
+function sortLeastRecent(recipes) {
+  const alphabeticalRecipes = sortAlphabetical(recipes);
+  return alphabeticalRecipes.sort((a, b) => {
+    if (a.recency < b.recency) {
+      return -1;
+    }
+    if (a.recency > b.recency) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
 /* eslint no-param-reassign: ["error", { "props": false }]*/
-export function assignPopularity(recipes, history) {
+export function assignPopularityAndRecency(recipes, history) {
   recipes.forEach((recipe) => {
     recipe.popularity = history.reduce((n, val) => n + (val === recipe.key), 0);
   });
 
+  history.forEach((e, i) => {
+    const recipe = recipes.find(r => r.key === e);
+    recipe.recency = i;
+  });
+
   return recipes;
 }
-
 
 export function sortRecipes(recipes, sortMethod) {
   // current methods: alphabetical, reverse alpha, recent, least recent, popular, least popular
@@ -75,6 +105,10 @@ export function sortRecipes(recipes, sortMethod) {
     sortedRecipes = sortPopular(recipes);
   } else if (sortMethod === 'Least Popular') {
     sortedRecipes = sortLeastPopular(recipes);
+  } else if (sortMethod === 'Recent') {
+    sortedRecipes = sortRecent(recipes);
+  } else if (sortMethod === 'Least Recent') {
+    sortedRecipes = sortLeastRecent(recipes);
   }
 
   return sortedRecipes;

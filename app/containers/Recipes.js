@@ -6,7 +6,7 @@ import Recipe from 'components/recipe';
 
 import firebaseApp from 'app/lib/firebase';
 
-import { assignPopularity, sortRecipes, recipeImages } from 'app/lib/utils';
+import { assignPopularityAndRecency, sortRecipes, recipeImages } from 'app/lib/utils';
 
 
 export default class RecipesContainer extends React.Component {
@@ -92,7 +92,7 @@ export default class RecipesContainer extends React.Component {
         menuHistory,
       }, () => {
         this.setState({
-          recipes: assignPopularity(this.state.recipes, menuHistory),
+          recipes: assignPopularityAndRecency(this.state.recipes, menuHistory),
         });
       });
     });
