@@ -286,6 +286,7 @@ Recipes = [
     prepTime: 10,
     cookTime: 30,
     serves: 6,
+    retired: true,
     ingredients: [
       {amount: '3 cups', name: 'chicken breast', list: true},
       {amount: '2 tablespoons', name: 'unsalted butter'},
@@ -312,6 +313,7 @@ Recipes = [
     prepTime: 15,
     cookTime: 480,
     serves: 8,
+    retired: true,
     ingredients: [
       {amount: '24 oz', name: 'chicken breast', list: true},
       {amount: '14.4 oz', name:'diced tomatoes with mild green chilies', list: true},
@@ -336,6 +338,7 @@ Recipes = [
     title: 'Cheesy Chicken and Wild rice Casserole',
     short: 'Cheesy Chicken & Rice Casserole',
     serves: 8,
+    retired: true,
     ingredients: [
       {section: 'casserole'},
       {amount: '3 Tablespoons', name: 'olive oil'},
@@ -1175,6 +1178,7 @@ Recipes = [
     serves: 4,
     prepTime: 10,
     cookTime: 40,
+    retired: true,
     ingredients: [
       {amount: '3 tablespoons', name: 'El Diablo Spicy Steakhouse Mustard', list: true},
       {amount: '1/4 cup', name: 'honey'},
@@ -1296,13 +1300,13 @@ Recipes = [
     title: 'Brazilian Punch',
     cocktail: true,
     ingredients: [
-      {amount: '?', name: 'Cachaça', list: true},
-      {amount: '?', name: 'Rum', list: true},
-      {amount: '?', name: 'Passionfruit', list: true},
-      {name: 'lemon', list: true},
+      {amount: '1.5 oz', name: 'Cachaça', list: true},
+      {amount: '2 tsp', name: 'Sugar'},
+      {amount: '3 oz', name: 'pure passion-fruit juice', list: true},
+      {name: 'lime', list: true},
     ],
     instructions: [
-      "Put things in a cup, put the cup to your mouth.",
+      "Add lime wedges and sugar to an 8-ounce short glass and muddle by pounding and pressing with a wooden spoon until sugar is dissolved. Fill glass with ice and add passion-fruit juice and cachaça, then stir well.",
     ]
   },
   {
@@ -1672,29 +1676,17 @@ Recipes = [
     ]
   },
   {
-    id: 'roasted-sweet-potato-wild-rice-arugula-salad',
-    title: 'Roasted Sweet Potato Wild Rice Arugula Salad',
-    short: 'Sweet Potato Arugula Salad',
+    id: 'boozy-peppermint-hot-chocolate',
+    title: 'Boozy Peppermint Hot Chocolate w/ Peppermint Schnapps & Marshmallow Vodka',
+    cocktail: true,
     ingredients: [
-      {amount: '2 cups cooked', name: 'wild rice (about 1/2 cup raw)'},
-      {amount: '2 large', name: 'sweet potatoes', list: true},
-      {amount: '1 tablespoon', name: 'olive oil'},
-      {amount: '1 teaspoon', name: 'chili powder'},
-      {name: 'salt and pepper to taste'},
-      {amount: '3 cups', name: 'arugula', list: true},
-      {amount: '1/2 cup', name: 'cashew pieces', list: true},
-      {section: 'Dressing'},
-      {amount: '1/4 cup', name: 'freshly squeezed lemon juice (about 2 lemons – more to taste)'},
-      {name: 'zest of the lemons'},
-      {amount: '1/3 cup', name: 'good quality olive oil'},
-      {amount: '2 teaspoons', name: 'honey'},
-      {amount: '2 cloves', name: 'garlic'},
-      {amount: '1/4 teaspoon', name: 'salt'},
+      {amount: '1 serving', name: 'Hot Chocolate'},
+      {amount: '1 shot', name: 'Marshmallow Vodka', list: true},
+      {amount: '1 shot', name: 'Peppermint Schnapps', list: true},
+      {name: 'whipped cream', list: true},
     ],
     instructions: [
-      "Cook the wild rice according to package directions. Meanwhile, make the dressing by pureeing all the dressing ingredients in a food processor. When the rice is done, toss it with a little bit of the dressing and refrigerate. Let it rest for a little while so it takes on the flavors of the dressing (I let it chill completely, but you wouldn’t have to do that).",
-      "Preheat the oven to 350 degrees. Place the sweet potato pieces directly on a baking sheet. Drizzle with the oil and sprinkle with the chili powder, salt, and pepper. Stir directly on the pan to get everything mixed. Roast for 20-25 minutes, stirring every so often to keep from burning. When the sweet potatoes are golden brown on the outside, remove from the oven and set aside.",
-      "Toss the arugula, wild rice, sweet potatoes, cashews, and the remaining dressing together. Serve warm or cold. YUM.",
+      "Be warm and jolly on the inside and the outside.",
     ]
   },
 ]

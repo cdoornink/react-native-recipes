@@ -51,6 +51,10 @@ export default class Recipes extends React.Component {
     this.props.toggleOnShoppingList(recipe);
   }
 
+  filterOutRetiredRecipes(recipes) {
+    return recipes.filter(recipe => !recipe.retired);
+  }
+
   renderRecipeListItem(recipe) {
     return (
       <RecipeListItem
@@ -71,6 +75,8 @@ export default class Recipes extends React.Component {
         recipe.title.toLowerCase().indexOf(this.state.recipeFilterKey.toLowerCase()) !== -1,
       );
     }
+
+    filteredRecipes = this.filterOutRetiredRecipes(filteredRecipes);
 
     return (
       <View>

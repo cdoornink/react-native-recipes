@@ -222,8 +222,7 @@ If this causes problems for you, you may want to try changing your terminal's co
 
 ## Releasing to App Store
 
+Since it has already been added to the app store, you should be able to simply update the version and run `exp publish`
+
+If that doesn't work, consult this doc:
 https://docs.expo.io/versions/latest/guides/building-standalone-apps.html#3-start-the-build
-
-Run `exp start` in your app directory to boot up the Expo packager. This is necessary because during the build process your app will be republished to ensure it is the latest version.
-
-Once the app has started, run `exp build:ios`.
