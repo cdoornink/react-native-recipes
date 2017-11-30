@@ -1465,8 +1465,8 @@ Recipes = [
     cookTime: 20,
     serves: 4,
     ingredients: [
-      {section: 'Brussels Sprouts'},
-      {amount: '1 pound', name: 'brussels sprouts', list: true},
+      {section: 'Brussel Sprouts'},
+      {amount: '1 pound', name: 'brussel sprouts', list: true},
       {amount: '2 tbsp', name: 'olive oil'},
       {amount: '½ tsp', name: 'salt'},
       {amount: '¼ tsp', name: 'pepper'},
@@ -1483,9 +1483,9 @@ Recipes = [
       {amount: '¼ tsp', name: 'pepper'},
     ],
     instructions: [
-      "BRUSSELS SPROUTS: Preheat your oven to 400 F. Lightly spray a baking sheet with nonstick spray, or line with foil. Prepare the brussels sprouts by trimming off a bit of the root end and peeling off any damaged leaves. Chop in half making sure to chop through the root, keeping two in-tact halves, and place on the baking sheet. Repeat with the remaining brussels sprouts. Drizzle with teh olive oil, sprinkle with salt and pepper, and roast in the oven for about 20 minutes, stirring halfway through -- until they're browned but not burnt.",
-      "COUSCOUS: While the brussels sprouts are roasting, add your couscous, water and salt to a small saucepan. Cover and bring to a boil, then turn off the heat -- leaving the cover on for 5 minutes. Remove the lid and fluff with a fork.",
-      "SALAD: Mix the tahini or hummus with the apple cider vinegar, salt and pepper. You can add more or less vinegar to make it the consistency you like best. Fill four bowls with the lettuce. Top each with ¼ of the avocado, couscous, and roasted brussels sprouts. Drizzle with the dressing and serve.",
+      "BRUSSEL SPROUTS: Preheat your oven to 400 F. Lightly spray a baking sheet with nonstick spray, or line with foil. Prepare the brussel sprouts by trimming off a bit of the root end and peeling off any damaged leaves. Chop in half making sure to chop through the root, keeping two in-tact halves, and place on the baking sheet. Repeat with the remaining brussel sprouts. Drizzle with teh olive oil, sprinkle with salt and pepper, and roast in the oven for about 20 minutes, stirring halfway through -- until they're browned but not burnt.",
+      "COUSCOUS: While the brussel sprouts are roasting, add your couscous, water and salt to a small saucepan. Cover and bring to a boil, then turn off the heat -- leaving the cover on for 5 minutes. Remove the lid and fluff with a fork.",
+      "SALAD: Mix the tahini or hummus with the apple cider vinegar, salt and pepper. You can add more or less vinegar to make it the consistency you like best. Fill four bowls with the lettuce. Top each with ¼ of the avocado, couscous, and roasted brussel sprouts. Drizzle with the dressing and serve.",
     ]
   },
   {
@@ -1614,14 +1614,14 @@ Recipes = [
       {amount: '1 Tbsp', name: 'fresh thyme', list: true},
       {amount: '1½ tsp.', name: 'sea salt'},
       {amount: '1 tsp.', name: 'black pepper'},
-      {amount: '4', name: 'chicken breasts', list: true},
+      {amount: '4', name: 'chicken thighs with skin', list: true},
       {amount: '3 cups', name: 'baby red potatoes', list: true},
       {amount: '1 lb. fresh', name: 'green beans', list: true},
     ],
     instructions: [
       "Preheat oven to 400 degrees F.",
       "In a small bowl, whisk together 2 tablespoons olive oil, lemon juice, zest, garlic, rosemary, thyme, salt and pepper. In a separate bowl toss together potatoes with tablespoon olive oil and season with additional salt and pepper, if desired.",
-      "On a large baking sheet lightly sprayed with oil, arrange chicken breasts, potatoes and green beans and drizzle herb mixture over top, using a brush or your hands to make sure everything is evenly coated.",
+      "On a large baking sheet lightly sprayed with oil, arrange chicken thighs, potatoes and green beans and drizzle herb mixture over top, using a brush or your hands to make sure everything is evenly coated.",
       "Place the pan in the oven and roast for 25 to 30 minutes, depending on the size of your breasts. Chicken should have an internal temp of 165 degrees F, potatoes should be tender and green beans nice and crisp! Feel free to turn the broiler on for a couple minutes if you like your potatoes a bit more crisp.",
       "Serve and enjoy!",
     ]
